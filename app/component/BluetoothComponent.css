@@ -1,0 +1,78 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+    border-radius: 20px;
+    border: 2px solid #000;
+    background-color: #AED6CF;
+    width: 70%;
+    padding: 10px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.buttons-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+}
+
+.buttons-container button {
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.buttons-container #forget-device-button {
+    background-color: #000000;
+    color: white;
+}
+
+.buttons-container #disconnect-button {
+    background-color: #FF0000;
+    color: white;
+}
+
+.buttons-container #connect-button {
+    background-color: #007A04;
+    color: white;
+}
+
+#find-device-button {
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #A2DBFF;
+    color: black;
+}   
+
+.choices-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.choices-container button {
+width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.choice-button {
+    background-color: #A2DBFF;
+    color: black;
+}
+
+#cancel-button {
+    background-color: #000000;
+    color: white;
+}
+
+.find-device-button {
+    width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+}
