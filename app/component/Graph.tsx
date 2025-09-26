@@ -3,6 +3,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  LabelList,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -19,7 +20,7 @@ export interface HourlyAvg {
 }
 
 export interface GraphProps {
-  hourly: HourlyAvg[];
+  hourly?: HourlyAvg[];
   unit?: TempUnit;
   title?: string;
   yDomainC?: [number, number];
@@ -31,17 +32,18 @@ export default class Graph extends PureComponent<GraphProps> {
   static defaultProps: Partial<GraphProps> = {
     unit: "C",
     title: "Average Temperature Breakdown",
+    hourly: [],
   };
 
   private getDomain(
     unit: TempUnit,
     yDomainC: [number, number] | undefined,
-    data: HourlyAvg[],
+    data: HourlyAvg[] | undefined,
     key: "avgC" | "avgF"
   ): [number, number] {
     if (yDomainC)
       return unit === "C" ? yDomainC : [cToF(yDomainC[0]), cToF(yDomainC[1])];
-    const vals = data
+    const vals = (data ?? [])
       .map((d) => d[key])
       .filter((v) => Number.isFinite(v)) as number[];
     if (!vals.length) return [0, 1];
@@ -52,9 +54,10 @@ export default class Graph extends PureComponent<GraphProps> {
   }
 
   render() {
-    const { hourly, unit = "C", title, yDomainC } = this.props;
-    const valueKey: "avgC" | "avgF" = unit === "C" ? "avgC" : "avgF";
-    const domain = this.getDomain(unit, yDomainC, hourly, valueKey);
+  const { hourly, unit = "C", title, yDomainC } = this.props;
+  const hours = hourly ?? [];
+  const valueKey: "avgC" | "avgF" = unit === "C" ? "avgC" : "avgF";
+  const domain = this.getDomain(unit, yDomainC, hours, valueKey);
 
     return (
       <div className="graph-panel">
@@ -63,7 +66,7 @@ export default class Graph extends PureComponent<GraphProps> {
           <div className="graph-plot">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={hourly}
+                data={hours}
                 margin={{ top: 10, right: 16, bottom: 20, left: 8 }}
               >
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />

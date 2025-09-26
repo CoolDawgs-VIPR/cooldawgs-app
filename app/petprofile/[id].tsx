@@ -9,8 +9,8 @@ export default function PetProfileScreen() {
   return (
     <div>
       <BluetoothComponent status={status} connectedDevice={connectedDevice} />
-      <Temperature status={status} connectedDevice={connectedDevice} />
-      <Graph status={status} connectedDevice={connectedDevice} />
+      <Temperature/>
+      <Graph />
     </div>
   );
 }
