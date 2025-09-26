@@ -3,6 +3,7 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  LabelList,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -36,12 +37,12 @@ export default class Graph extends PureComponent<GraphProps> {
   private getDomain(
     unit: TempUnit,
     yDomainC: [number, number] | undefined,
-    data: HourlyAvg[],
-    key: "avgC" | "avgF"
+    key: "avgC" | "avgF",
+    data: Int16Array = new Int16Array([1, 2, 3])
   ): [number, number] {
     if (yDomainC)
       return unit === "C" ? yDomainC : [cToF(yDomainC[0]), cToF(yDomainC[1])];
-    const vals = data
+    const vals: Int16Array = data
       .map((d) => d[key])
       .filter((v) => Number.isFinite(v)) as number[];
     if (!vals.length) return [0, 1];
@@ -52,9 +53,9 @@ export default class Graph extends PureComponent<GraphProps> {
   }
 
   render() {
-    const { hourly, unit = "C", title, yDomainC } = this.props;
+    var { hourly, unit = "C", title, yDomainC } = this.props;
     const valueKey: "avgC" | "avgF" = unit === "C" ? "avgC" : "avgF";
-    const domain = this.getDomain(unit, yDomainC, hourly, valueKey);
+    const domain = this.getDomain(unit, yDomainC, valueKey);
 
     return (
       <div className="graph-panel">
