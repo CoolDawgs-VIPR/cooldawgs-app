@@ -24,7 +24,7 @@ function parseCsv(text: string): TempSample[] {
 function computeHourlyAverages(samples: TempSample[]): HourlyAvg[] {
   const buckets = Array.from({ length: 24 }, () => ({ sum: 0, n: 0 }));
   for (const s of samples) {
-    const h = new Date(s.t).getHours(); // local time hour 0..23; use getUTCHours() if you prefer UTC
+    const h = new Date(s.t).getHours(); // local time hour 0..23; use getUTCHours()
     buckets[h].sum += s.c;
     buckets[h].n += 1;
   }
