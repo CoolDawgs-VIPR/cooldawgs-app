@@ -40,10 +40,11 @@ const Temperature: React.FC<TemperatureProps> = ({
 const styles = StyleSheet.create({
   tempsContainer: {
     backgroundColor: '#aebfd3',
-    width: '90%',
+    width: '80%',
     padding: 15,
     borderRadius: 12,
     alignItems: 'center',
+    margin: 10,
   },
   tempsLine: {
     fontSize: 20,

@@ -1,10 +1,11 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { Device } from "react-native-ble-plx";
 
-import GraphFromFile from "../component/GraphFromFile";
+// import GraphFromFile from "../component/GraphFromFile"; // Commented out as it's not React Native compatible
 import BluetoothComponent from "../component/BluetoothComponent";
+import Temperature from "../component/Temperature";
 
 const tempDogs = [
   {
@@ -79,6 +80,18 @@ const { id } = useLocalSearchParams();
   return (
     <ScrollView contentContainerStyle={styles.container}> 
       <Text style={styles.title}>{pet.name}'s Profile</Text>
+      {/* <BluetoothComponent
+        status={status}
+        connectedDevice={connectedDevice}
+        onStatusChange={setStatus}
+        onDeviceChange={setConnectedDevice}
+      /> */}
+      <Temperature 
+        currentC={73}
+        suggestedLimitC={79}
+        max24hC={80}
+      />
+      {/* <GraphFromFile /> */}
       
 
     </ScrollView>
