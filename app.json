@@ -20,7 +20,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.bhargavg1.cooldawgs"
+      "package": "com.nnatarajan.cooldawgs"
     },
     "web": {
       "output": "static",
@@ -48,7 +48,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "a2ba92b6-2fc5-46db-b78c-3df21ebf165c"
+        "projectId": "39163291-5a1f-4744-8ac9-3ca7ee4863b3"
       }
     }
   }

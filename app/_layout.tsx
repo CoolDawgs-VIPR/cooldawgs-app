@@ -16,13 +16,6 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-        <Stack.Screen name="index" />
-        <Stack.Screen name="explore" options={{
-            presentation: 'modal',
-            animation: 'fade',
-            headerShown: false
-          }}/>
         <Stack.Screen name="petprofile/[id]" options={{
             presentation: 'modal',
             animation: 'fade',
