@@ -1,43 +1,57 @@
 import React from "react";
-import "./Temperature.css";
+import { StyleSheet, Text, View } from "react-native";
 
 export interface TemperatureProps {
-  currentC: number | null;
-  suggestedLimitC: number | null;
-  max24hC: number | null;
+  currentC: number;
+  suggestedLimitC: number;
+  max24hC: number;
 }
 
 const cToF = (c: number) => (c * 9) / 5 + 32;
-const fmtBoth = (c?: number | null) =>
+
+const fmtBoth = (c?: number) =>
   typeof c === "number" && Number.isFinite(c)
-    ? `${c.toFixed(1)} C° / ${cToF(c).toFixed(1)} F°`
-    : "XX C°/F°";
+    ? `${c.toFixed(1)}°C / ${cToF(c).toFixed(1)}°F`
+    : "-- °C/°F";
 
-export default class Temperature extends React.PureComponent<TemperatureProps> {
-  static defaultProps: Partial<TemperatureProps> = {
-    currentC: null,
-    suggestedLimitC: null,
-    max24hC: null,
-  };
+const Temperature: React.FC<TemperatureProps> = ({
+  currentC = null,
+  suggestedLimitC = null,
+  max24hC = null,
+}) => {
+  return (
+    <View style={styles.tempsContainer}>
+      <Text style={styles.tempsLine}>
+        <Text style={styles.tempsLabel}>Current Temperature: </Text>
+        {fmtBoth(currentC)}
+      </Text>
+      <Text style={styles.tempsLine}>
+        <Text style={styles.tempsLabel}>Suggested Limit: </Text>
+        {fmtBoth(suggestedLimitC)}
+      </Text>
+      <Text style={styles.tempsLine}>
+        <Text style={styles.tempsLabel}>24H Max: </Text>
+        {fmtBoth(max24hC)}
+      </Text>
+    </View>
+  );
+};
 
-  render() {
-    const { currentC, suggestedLimitC, max24hC } = this.props;
+const styles = StyleSheet.create({
+  tempsContainer: {
+    backgroundColor: '#aebfd3',
+    width: '90%',
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  tempsLine: {
+    fontSize: 20,
+    marginVertical: 8,
+  },
+  tempsLabel: {
+    fontWeight: '800',
+  },
+});
 
-    return (
-      <div className="temps">
-        <div className="temps-line">
-          <span className="temps-label">Current Temperature: </span>
-          {fmtBoth(currentC)}
-        </div>
-        <div className="temps-line">
-          <span className="temps-label">Suggested Limit : </span>
-          {fmtBoth(suggestedLimitC)}
-        </div>
-        <div className="temps-line">
-          <span className="temps-label">24H Max: </span>
-          {fmtBoth(max24hC)}
-        </div>
-      </div>
-    );
-  }
-}
+export default Temperature;
