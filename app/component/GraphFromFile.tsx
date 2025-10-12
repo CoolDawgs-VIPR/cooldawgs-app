@@ -1,7 +1,12 @@
+import { Asset } from "expo-asset";
+import * as FileSystem from "expo-file-system";
 import React from "react";
-import Graph, { type HourlyAvg } from "../component/Graph";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import Graph, { type HourlyAvg } from "./Graph";
 
-type TempSample = { t: number; c: number }; // ms timestamp, Celsius
+const TEMPS_ASSET = Asset.fromModule(require("../assets/temps_24h.json"));
+
+type TempSample = { t: number; c: number };
 
 const cToF = (c: number) => (c * 9) / 5 + 32;
 
@@ -24,12 +29,12 @@ function parseCsv(text: string): TempSample[] {
 function computeHourlyAverages(samples: TempSample[]): HourlyAvg[] {
   const buckets = Array.from({ length: 24 }, () => ({ sum: 0, n: 0 }));
   for (const s of samples) {
-    const h = new Date(s.t).getHours(); // local time hour 0..23; use getUTCHours()
+    const h = new Date(s.t).getHours();
     buckets[h].sum += s.c;
     buckets[h].n += 1;
   }
   return buckets.map((b, hour) => {
-    if (!b.n) return { hour, avgC: NaN, avgF: NaN }; // NaN makes Recharts skip the bar
+    if (!b.n) return { hour, avgC: NaN, avgF: NaN };
     const avgC = b.sum / b.n;
     return { hour, avgC, avgF: cToF(avgC) };
   });
@@ -42,24 +47,54 @@ export default class GraphFromFile extends React.Component<{}, State> {
 
   async componentDidMount() {
     try {
-      const res = await fetch("/temps_24h.txt", { cache: "no-store" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
-      const samples = parseCsv(text);
+      await TEMPS_ASSET.downloadAsync(); // no-op if already local
+      const uri = TEMPS_ASSET.localUri ?? TEMPS_ASSET.uri;
+      if (!uri) throw new Error("Asset URI not available");
+
+      const text = await FileSystem.readAsStringAsync(uri, {
+        encoding: "utf8",
+      });
+
+      const samples = JSON.parse(text).map((e: any) => ({
+        t: e.timestamp_ms,
+        c: e.temp_c,
+      }));
       const hourly = computeHourlyAverages(samples);
       this.setState({ hourly, loaded: true });
     } catch (e: any) {
-      this.setState({ error: String(e), loaded: true });
+      this.setState({ error: String(e?.message ?? e), loaded: true });
     }
   }
 
   render() {
     const { hourly, loaded, error } = this.state;
-    if (!loaded) return <div>Loading data…</div>;
+    if (!loaded)
+      return (
+        <View style={styles.center}>
+          <ActivityIndicator />
+          <Text>Loading…</Text>
+        </View>
+      );
     if (error)
-      return <div style={{ color: "crimson" }}>Failed to load: {error}</div>;
+      return (
+        <View style={styles.center}>
+          <Text style={styles.err}>Failed to load: {error}</Text>
+        </View>
+      );
     return (
-      <Graph hourly={hourly} unit="C" title="Average Temperature Breakdown" />
+      <View style={{ flex: 1 }}>
+        <Graph hourly={hourly} unit="C" title="Average Temperature Breakdown" />
+      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 12,
+  },
+  err: { color: "crimson", textAlign: "center" },
+});
