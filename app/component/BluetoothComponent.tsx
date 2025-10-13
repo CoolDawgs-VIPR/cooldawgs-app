@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, TouchableOpacity, View, StyleSheet, Text, PermissionsAndroid, Platform } from "react-native";
+import { FlatList, PermissionsAndroid, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { BleManager, Device } from "react-native-ble-plx";
 
@@ -82,16 +82,23 @@ export default function BluetoothComponent(props: BluetoothComponentProps) {
     if (connectedDevice) {
       try {
         await connectedDevice.cancelConnection();
-        onDeviceChange(null);
-        onStatusChange(false);
+        onStatusChange(false); 
       } catch (error) {
         console.error("Failed to disconnect", error);
       }
     }
   };
 
-  const forgetDevice = () => {
-    disconnectDevice();
+  const forgetDevice = async () => {
+        if (connectedDevice) {
+     try {
+        await connectedDevice.cancelConnection();
+        onDeviceChange(null);
+        onStatusChange(false);
+      } catch (error) {
+        console.error("Failed to disconnect", error);
+      }
+    }
   };
   
   useEffect(() => {
@@ -109,20 +116,30 @@ export default function BluetoothComponent(props: BluetoothComponentProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.statusText}>
-        {status && connectedDevice ? `Connected to: ${connectedDevice.name}` : "No device connected"}
+        {status && connectedDevice
+          ? `${connectedDevice.name}`
+          : connectedDevice
+          ? `${connectedDevice.name}`
+          : "No device connected"}
       </Text>
 
-      {status ? (
+      {connectedDevice && (
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={[styles.button, styles.forgetButton]} onPress={forgetDevice}>
-            <Text style={styles.buttonText}>Forget</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.disconnectButton]} onPress={disconnectDevice}>
-            <Text style={styles.buttonText}>Disconnect</Text>
-          </TouchableOpacity>
+                    <TouchableOpacity style={[styles.button, styles.forgetButton]} onPress={forgetDevice}><Text style={styles.buttonText}>Forget</Text></TouchableOpacity>
+
+          {status ? (
+            <TouchableOpacity style={[styles.button, styles.disconnectButton]} onPress={disconnectDevice}>
+              <Text style={styles.buttonText}>Disconnect</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={[styles.button, styles.connectButton]} onPress={() => connectToDevice(connectedDevice)}>
+              <Text style={styles.buttonText}>Connect</Text>
+            </TouchableOpacity>
+          )}
         </View>
-      ) : (
-        <TouchableOpacity style={[styles.button, styles.findDeviceButton]} onPress={startScan}>
+      )}
+      {!connectedDevice && (
+        <TouchableOpacity style={[styles.button, styles.findDeviceButton]} onPress={startScan} disabled={displayChoices}>
           <Text style={styles.findDeviceButtonText}>Find Device</Text>
         </TouchableOpacity>
       )}
@@ -183,6 +200,9 @@ const styles = StyleSheet.create({
   },
   disconnectButton: {
     backgroundColor: '#ff0000',
+  },
+  connectButton: {
+    backgroundColor: '#008d57ff',
   },
   findDeviceButton: {
     width: '80%',

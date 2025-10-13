@@ -54,9 +54,9 @@ const { id } = useLocalSearchParams();
         onDeviceChange={setConnectedDevice}
       />
       <Temperature 
-        currentC={73}
-        suggestedLimitC={79}
-        max24hC={80}
+        currentC={Math.random() * 30 + 70}
+        suggestedLimitC={Math.random() * 5 + 75}
+        max24hC={Math.random() * 10 + 80}
       />
       {/* <GraphFromFile /> */}
       

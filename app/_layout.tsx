@@ -18,9 +18,10 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="petprofile/[id]" options={{
-            presentation: 'modal',
+            presentation: 'card',
             animation: 'fade',
-            headerShown: false
+            headerShown: true,
+            title: 'Profile',
           }}/>
       </Stack>
       <StatusBar style="auto" />
