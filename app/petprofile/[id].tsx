@@ -34,18 +34,18 @@ const tempDogs = [
     breed: "Bulldog",
     picurl:
       "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%2Fid%2FOIP.cgyBn3uKkMYyTLhwzRFnlgHaJY%3Fpid%3DApi&f=1&ipt=6e46c26aecf7a9dc862707ae15e7f668a7ff1ff6b7d3e02d17b8b2471df34a87&ipo=images",
-  }
+  },
 ];
 
 export default function PetProfileScreen() {
-const { id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   const pet = tempDogs.filter((pet) => pet.name === id)[0];
 
   const [status, setStatus] = useState<boolean>(false);
   const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}> 
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>{pet.name}'s Profile</Text>
       <BluetoothComponent
         status={status}
@@ -53,27 +53,25 @@ const { id } = useLocalSearchParams();
         onStatusChange={setStatus}
         onDeviceChange={setConnectedDevice}
       />
-      <Temperature 
+      <Temperature
         currentC={Math.random() * 30 + 70}
         suggestedLimitC={Math.random() * 5 + 75}
         max24hC={Math.random() * 10 + 80}
       />
       {/* <GraphFromFile /> */}
-      
-
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#aebfd3',
-    alignItems: 'center',
+    backgroundColor: "#aebfd3",
+    alignItems: "center",
     paddingVertical: 20,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-  }
+  },
 });

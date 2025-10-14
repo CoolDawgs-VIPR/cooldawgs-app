@@ -81,9 +81,15 @@ export default class GraphFromFile extends React.Component<{}, State> {
           <Text style={styles.err}>Failed to load: {error}</Text>
         </View>
       );
+    //change the y doamin here later on.
     return (
       <View style={{ flex: 1 }}>
-        <Graph hourly={hourly} unit="C" title="Average Temperature Breakdown" />
+        <Graph
+          hourly={hourly}
+          unit="C"
+          title="Average Temperature Breakdown"
+          yDomainC={[25, 38]}
+        />
       </View>
     );
   }
