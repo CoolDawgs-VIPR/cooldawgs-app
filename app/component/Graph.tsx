@@ -38,7 +38,7 @@ export default class Graph extends PureComponent<GraphProps> {
         label: String(h.hour),
         frontColor: valid ? "#86efac" : "transparent",
         topLabelComponent: valid
-          ? () => <Text style={styles.topLabel}>{val.toFixed(1)}</Text>
+          ? () => <Text style={styles.topLabel}>{}</Text>
           : undefined,
       };
     });

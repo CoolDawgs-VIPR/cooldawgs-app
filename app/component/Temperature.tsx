@@ -44,11 +44,14 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 12,
     alignItems: "center",
+    alignSelf: "center",
     margin: 10,
   },
   tempsLine: {
     fontSize: 20,
     marginVertical: 8,
+        textAlign: "center",
+
   },
   tempsLabel: {
     fontWeight: "800",

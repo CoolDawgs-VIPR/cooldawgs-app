@@ -5,6 +5,7 @@ import { Device } from "react-native-ble-plx";
 
 import BluetoothComponent from "../component/BluetoothComponent";
 import Temperature from "../component/Temperature";
+import Graph, { type HourlyAvg } from "../component/Graph";
 
 const tempDogs = [
   {
@@ -58,7 +59,16 @@ export default function PetProfileScreen() {
         suggestedLimitC={Math.random() * 5 + 75}
         max24hC={Math.random() * 10 + 80}
       />
-      {/* <GraphFromFile /> */}
+      <Graph
+        title="Hourly Average Temperature"
+        unit="F"
+        hourly={Array.from({ length: 24 }, (_, i) => ({
+          hour: i,
+          avgC: Math.random() * 10 + 20,
+          avgF: Math.random() * 18 + 90,
+        }))}
+      />
+
     </ScrollView>
   );
 }
