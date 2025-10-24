@@ -20,6 +20,7 @@ export default function RootLayout() {
         <Stack.Screen name="petprofile/[id]" options={{
             presentation: 'card',
             animation: 'fade',
+            animationDuration: 50,
             headerShown: true,
             title: 'Profile',
           }}/>
