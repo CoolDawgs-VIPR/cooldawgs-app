@@ -16,7 +16,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="petprofile/[id]" options={{
-            presentation: 'card',
+            presentation: "containedModal",
             animation: 'fade',
             headerShown: true,
             title: 'Profile',
@@ -28,17 +28,17 @@ export default function RootLayout() {
           animation: "slide_from_bottom",
         }}/>
         <Stack.Screen name="welcome/login" options={{
-          presentation: "containedModal",
-          animation: "slide_from_right",
+          presentation: "modal",
+          animation: "flip",
           headerShown: true,
-          headerTransparent: true,
+          //headerTransparent: true,
           title: "login"
         }}/>
         <Stack.Screen name="welcome/signup" options={{
-          presentation: "fullScreenModal",
+          headerShown: true,
+          presentation: "modal",
           animation: "flip",
-          headerShown: false,
-          title: "signup"
+          title: "Create Account..."
         }}/>
       </Stack>
       <StatusBar style="auto" />

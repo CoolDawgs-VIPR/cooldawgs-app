@@ -3,11 +3,6 @@ import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Animated, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-
-
-
-
-
 export default function signup() {
 
     const signupAnim = useRef(new Animated.Value(1)).current;
@@ -65,14 +60,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#447a99",
         width: "100%",
         height: "100%",
-        justifyContent: "center",
+        //justifyContent: "center",
         alignItems: "center",
     },
 
     holder: {
-        width: "80%",
+        width: "100%",
         height: "50%",
-        backgroundColor: "lightgray", //remove 
+        //backgroundColor: "lightgray",
         flexDirection: "column",  
         padding: "4%",
         borderRadius: 10,
@@ -116,12 +111,12 @@ const styles = StyleSheet.create({
 
     login_button_style: {
         width: "100%",
-        height: "100%",
+        height: 80,
         borderColor: "black",
-        borderWidth: 3,
+        borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 10,
+        borderRadius: 4,
         backgroundColor: "#008b5dff",
     },
 
