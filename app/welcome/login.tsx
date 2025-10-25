@@ -1,11 +1,34 @@
 
 import { router } from "expo-router";
+import * as SecureStorage from 'expo-secure-store';
 import { useRef, useState } from "react";
 import { Animated, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function signup() {
 
     const signupAnim = useRef(new Animated.Value(1)).current;
+
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    const handleLogin = async () => {
+        try {
+            const response = await fetch("https://localhost/login", {
+                method: 'POST',
+                headers: { 'Content-Type': "application/json" },
+                body: JSON.stringify({ "username": username, "password": password })
+            });
+
+            const data = await response.json();
+            if (data.token) {
+                await SecureStorage.setItemAsync('authToken', data.token);
+            } else {
+                console.log("the login has failed for username " + username);
+            }
+        } catch (error) {
+            console.log("there was an error: " + error);
+        }
+    }
 
     const onPressIn = (anim: Animated.Value, route: any) => {
         return () => {
@@ -27,8 +50,6 @@ export default function signup() {
             }).start();
         }
     }
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
 
     return (
         <View style={styles.body}>
