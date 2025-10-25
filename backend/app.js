@@ -14,8 +14,6 @@ app.use(express.json({etended: false}));
 // app.use('/api/users', users);
 // app.use('/api/pets', pets);
 // app.use('/api/temp', temp);
-
-
 // Create your own db username and password and add that here
 const conn_str = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cooldawgs-cluster1.qrigh6d.mongodb.net/?retryWrites=true&w=majority&appName=CoolDawgs-Cluster1`
 

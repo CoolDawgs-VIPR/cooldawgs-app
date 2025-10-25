@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import DogCard from "../component/DogCard";
@@ -43,8 +43,8 @@ const tempDogs = [
 
 const styles = StyleSheet.create({
   centerscreen: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "center",
     flexWrap: "wrap",
     height: "auto",
     width: "auto",
@@ -62,12 +62,14 @@ export default function mainpage() {
       age={item.age}
       breed={item.breed}
       picurl={item.picurl}
-      onpress={() => router.push(`/petprofile/${item.name}`)}
+      onpress={() => router.push(`/petprofile/${item.name}`)}  //ADD THIS BACK
+      //onpress={() => router.push(`/welcome`)} //COMMENT THIS OUT
     />
   );
 
   return (
     <View style={styles.centerscreen}>
+      <Link href={`/welcome`} style={{color: "blue", textDecorationLine: "underline"}}>press here to test login page (i will remove this later)</Link>
       <FlatList
         data={tempDogs}
         renderItem={renderItem}
