@@ -3,11 +3,6 @@ import { useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import { Animated, KeyboardAvoidingView, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
-
-
-
-
-
 export default function signup() {
 
     const router = useRouter();
@@ -41,9 +36,9 @@ export default function signup() {
 
     return (
         <KeyboardAvoidingView style={styles.body} behavior="height" >
-            <ScrollView contentContainerStyle={styles.holder}>
-                <View style={styles.fill}>
-                    <Text style={styles.prompt_text}>Fill out the fields below:</Text>
+            <ScrollView>
+                <View style={styles.holder}>
+                    <Text style={styles.prompt_text}>🐕Fill out the fields below:</Text>
                     <View style={styles.fill_width}>
                         <Text>Username: </Text>                    
                         <TextInput style={styles.text_input_style} placeholder="username" placeholderTextColor="black" autoCapitalize="none" onChangeText={setUsername}/>
@@ -79,10 +74,6 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-    holder: {
-        padding: "2%"
-    }, 
-
     text_input_style: {
         backgroundColor: "white",
         borderWidth: 2,
@@ -96,7 +87,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
 
-    fill: {
+    holder: {
         width: "100%",
         height: "80%",
         flexDirection: "column",  
