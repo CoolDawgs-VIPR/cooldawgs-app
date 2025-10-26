@@ -13,7 +13,11 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack screenOptions={{
+        headerStyle: {
+            //backgroundColor: "#aebfd3"
+        }
+      }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="petprofile/[id]" options={{
             presentation: "containedModal",
@@ -28,17 +32,14 @@ export default function RootLayout() {
           animation: "slide_from_bottom",
         }}/>
         <Stack.Screen name="welcome/login" options={{
-          presentation: "modal",
-          animation: "flip",
-          headerShown: true,
-          //headerTransparent: true,
+          presentation: "fullScreenModal",
+          animation: "slide_from_right",
           title: "login"
         }}/>
         <Stack.Screen name="welcome/signup" options={{
-          headerShown: true,
           presentation: "modal",
-          animation: "flip",
-          title: "Create Account..."
+          animation: "slide_from_right",
+          title: "Create Account...",
         }}/>
       </Stack>
       <StatusBar style="auto" />

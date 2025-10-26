@@ -36,6 +36,7 @@ export default function signup() {
 
     return (
         <KeyboardAvoidingView style={styles.body} behavior="height" >
+            <Text>THIS PAGE DOESNT WORK YET GO TO LOGIN</Text>
             <ScrollView>
                 <View style={styles.holder}>
                     <Text style={styles.prompt_text}>🐕Fill out the fields below:</Text>
@@ -70,7 +71,7 @@ export default function signup() {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "#447a99",
+        backgroundColor: "#aebfd3",
         flex: 1,
     },
 

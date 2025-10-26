@@ -35,7 +35,7 @@ export default function Login() {
     return (
         <View style={styles.body}>
             <View style={styles.entry_holder}>
-                <Pressable onPressIn={onPressIn(loginAnim, `/welcome/login`)} onPressOut={onPressOut(loginAnim)} style={styles.button_pressable_surround}>
+                <Pressable onPressIn={onPressIn(loginAnim, '/welcome/login')} onPressOut={onPressOut(loginAnim)} style={styles.button_pressable_surround}>
                     <Animated.View style={[styles.login_button_style, {transform: [{scale: loginAnim}]}]}>
                         <Text style={styles.button_text}>Login</Text>
                     </Animated.View>
@@ -55,7 +55,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "#447a99",
+        backgroundColor: "#aebfd3",
         width: "100%",
         height: "100%",
         justifyContent: "center",
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         flexDirection: "column-reverse",
         //backgroundColor: "green", //remove
         height: "80%",
-        width: "80%",
+        width: "90%",
     },
 
     logo_and_remaining: {
@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderColor: "black",
-        borderWidth: 3,
+        //borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 10,
+        borderRadius: 3,
         backgroundColor: "#008b5dff",
     },
 
@@ -101,11 +101,11 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         borderColor: "black",
-        borderWidth: 3,
+        //borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 10,
-        backgroundColor: "#8b0035ff",
+        borderRadius: 3,
+        backgroundColor: "#831740ff",
     },
 
     cooldawgs_logo: {

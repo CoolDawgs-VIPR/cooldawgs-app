@@ -1,5 +1,6 @@
-import { Link, useRouter } from "expo-router";
-import React from "react";
+import { useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import DogCard from "../component/DogCard";
 
@@ -56,20 +57,43 @@ const styles = StyleSheet.create({
 export default function mainpage() {
   const router = useRouter();
 
+    const [username, setUsername] = useState<string | null>("");
+    const [email, setEmail] = useState<string | null>("");
+    const [token, setToken] = useState<string | null>("");
+
+    useEffect(() => {
+        console.log("running on home page");
+        const fetchuserdata = async () => {
+            try {
+                const usernameresult = await SecureStore.getItemAsync("username");
+                const emailresult = await SecureStore.getItemAsync("email");
+                const tokenresult = await SecureStore.getItemAsync("authToken");
+                if (!usernameresult || !emailresult || !tokenresult) {
+                    router.replace("/welcome");
+                } else {
+                    setUsername(usernameresult);
+                    setEmail(emailresult);
+                    setToken(tokenresult);
+                }
+            } catch (error) {
+                console.log("there was an error getting the token: " + error);
+            }
+        };
+        fetchuserdata();
+    });
+
   const renderItem = ({ item }: { item: Dog }) => (
     <DogCard
       name={item.name}
       age={item.age}
       breed={item.breed}
       picurl={item.picurl}
-      onpress={() => router.push(`/petprofile/${item.name}`)}  //ADD THIS BACK
-      //onpress={() => router.push(`/welcome`)} //COMMENT THIS OUT
+      onpress={() => router.push(`/petprofile/${item.name}`)}
     />
   );
-
+  /* <Link href={`/welcome`} style={{color: "blue", textDecorationLine: "underline"}}>press here to test login page (i will remove this later)</Link> */
   return (
     <View style={styles.centerscreen}>
-      <Link href={`/welcome`} style={{color: "blue", textDecorationLine: "underline"}}>press here to test login page (i will remove this later)</Link>
       <FlatList
         data={tempDogs}
         renderItem={renderItem}

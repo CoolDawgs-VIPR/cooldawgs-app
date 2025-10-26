@@ -21,6 +21,15 @@ export default function TabLayout() {
         options={{
           title: 'My Dogs',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          animation: "shift"
+        }}
+      />
+      <Tabs.Screen
+        name="usersettings"
+        options={{
+          title: 'My Profile',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person" color={color} />,
+          animation: "shift"
         }}
       />
     </Tabs>

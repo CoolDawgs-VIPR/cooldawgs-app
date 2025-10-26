@@ -1,70 +1,75 @@
 
-import { router } from "expo-router";
-import * as SecureStorage from 'expo-secure-store';
+import { useRouter } from "expo-router";
+import * as SecureStorage from "expo-secure-store";
 import { useRef, useState } from "react";
-import { Animated, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Animated, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function signup() {
+export default function login() {
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    
+    const router = useRouter();
 
     const signupAnim = useRef(new Animated.Value(1)).current;
 
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-
-    const handleLogin = async () => {
-        try {
-            const response = await fetch("https://localhost/login", {
-                method: 'POST',
-                headers: { 'Content-Type': "application/json" },
-                body: JSON.stringify({ "username": username, "password": password })
-            });
-
-            const data = await response.json();
-            if (data.token) {
-                await SecureStorage.setItemAsync('authToken', data.token);
-            } else {
-                console.log("the login has failed for username " + username);
-            }
-        } catch (error) {
-            console.log("there was an error: " + error);
-        }
-    }
-
     const onPressIn = (anim: Animated.Value, route: any) => {
-        return () => {
+        return async () => {
             Animated.spring(anim, {
                 toValue: 0.9,
                 tension: 100,
                 useNativeDriver: true
             }).start();
-            router.push(route);
-        }
-    }
+            try {
+                const response = await fetch("http://192.168.0.105:8082/api/users/authenticate", {
+                    method: 'POST',
+                    headers: { 'Content-Type': "application/json" },
+                    body: JSON.stringify({ "username": username, "password": password })
+                });
 
-    const onPressOut = (anim: Animated.Value) => {
-        return () => {
-            Animated.spring(anim, {
-                toValue: 1,
-                tension: 100,
-                useNativeDriver: true
-            }).start();
+                const data = await response.json();
+                if (data.token) {
+                    await SecureStorage.setItemAsync('authToken', data.token);
+                    await SecureStorage.setItemAsync('username', data.username);
+                    await SecureStorage.setItemAsync('email', data.email);
+                    router.push(route);
+                } else {
+                    console.log("the login has failed for username " + username);
+                    setUsername("");
+                    setPassword("");
+                }
+            } catch (error) {
+                console.log("there was an error: " + error);
+            } finally {
+                Animated.spring(anim, {
+                    toValue: 1,
+                    tension: 100,
+                    useNativeDriver: true
+                }).start();
+            }
         }
     }
 
     return (
         <View style={styles.body}>
+            <Text>TEMP USE THIS</Text>
+            <Text>Username: newuser1</Text>
+            <Text>password: qwerty</Text>
             <View style={styles.holder}>
                 <Text style={styles.prompt_text}>🐕‍🦺Enter your credentials</Text>
                 <View style={styles.fill_width}>
-                    <TextInput style={styles.text_input_style} placeholder="Username" placeholderTextColor="black" autoCapitalize="none" value={username} onChangeText={setUsername}/>
-                    <Text style={styles.forgot_text_styles}>Forgot Username...</Text>
+                    <TextInput style={styles.text_input_style} placeholder="Username" placeholderTextColor="black" autoCapitalize="none" onChangeText={setUsername}/>
+                    <TouchableOpacity>
+                        <Text style={styles.forgot_text_styles}>Forgot Username...</Text>
+                    </TouchableOpacity>                    
                 </View>
                 <View style={styles.fill_width}>
-                    <TextInput style={styles.text_input_style} placeholder="Password" placeholderTextColor="black" autoCapitalize="none" secureTextEntry={true} value={password} onChangeText={setPassword} />
-                    <Text style={styles.forgot_text_styles}>Forgot Password...</Text>
+                    <TextInput style={styles.text_input_style} placeholder="Password" placeholderTextColor="black" autoCapitalize="none" secureTextEntry={true} onChangeText={setPassword} />
+                    <TouchableOpacity>
+                        <Text style={styles.forgot_text_styles}>Forgot Password...</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.remaining}>
-                    <Pressable onPressIn={onPressIn(signupAnim, `/`)} onPressOut={onPressOut(signupAnim)} style={styles.button_pressable_surround}>
+                    <Pressable onPressIn={onPressIn(signupAnim, `/`)} style={styles.button_pressable_surround}>
                         <Animated.View style={[styles.login_button_style, {transform: [{scale: signupAnim}]}]}>
                             <Text style={styles.button_text}>Login</Text>
                         </Animated.View>
@@ -78,7 +83,7 @@ export default function signup() {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "#447a99",
+        backgroundColor: "#aebfd3",
         width: "100%",
         height: "100%",
         //justifyContent: "center",
@@ -132,7 +137,7 @@ const styles = StyleSheet.create({
 
     login_button_style: {
         width: "100%",
-        height: 80,
+        height: "100%",
         borderColor: "black",
         borderWidth: 2,
         justifyContent: "center",

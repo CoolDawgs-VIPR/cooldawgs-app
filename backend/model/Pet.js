@@ -9,6 +9,10 @@ const PetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    ownerEmail: {
+        type: String,
+        required: true
+    },
     breed: {
         type: String,
         required: true
