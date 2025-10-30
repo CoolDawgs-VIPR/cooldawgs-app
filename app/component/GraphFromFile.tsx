@@ -1,10 +1,9 @@
-import { Asset } from "expo-asset";
 import * as FileSystem from "expo-file-system";
 import React from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import Graph, { type HourlyAvg } from "./Graph";
 
-const TEMPS_ASSET = Asset.fromModule(require("../assets/temps_24h.json"));
+const TEMPS_ASSET = require("../assets/temps_24h.json");
 
 type TempSample = { t: number; c: number };
 
