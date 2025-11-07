@@ -16,13 +16,32 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(404).json({noPetFound: "No Pet found"}))
 })
 
-router.post("/", (req, res) => {
-    Pet.create(req.body)
-    .then((pet) => res.json({msg: 'Pet added successfully'}))
-    .catch((err) => res.status(400).json({error: "Unable to add pet"}))
+router.post("/", async (req, res) => {
+  console.log(req.body);
+  try {
+    const newPet = new Pet({
+      name: req.body.name,
+      ownerUsername: req.body.ownerUsername,
+      ownerEmail: req.body.ownerEmail,
+      breed: req.body.breed,
+      age: req.body.age,
+      gender: req.body.gender,
+      weight: req.body.weight,
+      neutered: req.body.neutered,
+      indoor: req.body.indoor,
+      bluetooth: req.body.bluetooth,
+      image: req.body.image,
+    });
+
+    const pet = await newPet.save();
+    res.json(pet);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create pet" });
+  }
 })
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
     Pet.findByIdAndDelete(req.params.id)
     .then((pet) => res.json({msg: 'Pet deleted successfully'}))
     .catch((err) => res.status(404).json({error: "No such item"}))

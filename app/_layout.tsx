@@ -25,6 +25,13 @@ export default function RootLayout() {
             headerShown: true,
             title: 'Profile',
           }}/>
+        <Stack.Screen name="addform" options={{
+            presentation: "containedModal",
+            animation: 'fade',
+            headerShown: true,
+            title: 'Add Pet',
+          }}/>
+        
         <Stack.Screen name="welcome/index" options={{
           presentation: "fullScreenModal",
           headerShown: false,

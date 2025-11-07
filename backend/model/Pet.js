@@ -7,15 +7,12 @@ const PetSchema = new mongoose.Schema({
     },
     ownerUsername: {
         type: String,
-        required: true
     },
     ownerEmail: {
         type: String,
-        required: true
     },
     breed: {
         type: String,
-        required: true
     },
     age: {
         type: Number,
@@ -39,11 +36,9 @@ const PetSchema = new mongoose.Schema({
     },
     bluetooth: {
         type: String,
-        required: true
     },
     image: {
         type: String,
-        required: true
     },
 })
 
