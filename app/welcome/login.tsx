@@ -20,7 +20,7 @@ export default function login() {
                 useNativeDriver: true
             }).start();
             try {                                   //CHANGE THE IP ADDRESS BELOW TO YOUR LAPTOP IP ADDRESS FOR DEVELOPMENT
-                const response = await fetch("http://172.20.246.17:8082/api/users/authenticate", { //CHANGE THE IP ADDRESS ON THIS LINE
+                const response = await fetch("http://172.20.70.171:8082/api/users/authenticate", { //CHANGE THE IP ADDRESS ON THIS LINE
                     method: 'POST',
                     headers: { 'Content-Type': "application/json" },
                     body: JSON.stringify({ "username": username, "password": password })
