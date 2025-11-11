@@ -22,9 +22,8 @@ export default function login() {
                 tension: 100,
                 useNativeDriver: true
             }).start();
-            try {                       
-                console.log(`${DATABASE_URL}/api/users/authenticate`)            //CHANGE THE IP ADDRESS BELOW TO YOUR LAPTOP IP ADDRESS FOR DEVELOPMENT
-                const response = await fetch(`${DATABASE_URL}/api/users/authenticate`, { //CHANGE THE IP ADDRESS ON THIS LINE
+            try {                                   //CHANGE THE IP ADDRESS BELOW TO YOUR LAPTOP IP ADDRESS FOR DEVELOPMENT
+                const response = await fetch("http://172.20.70.171:8082/api/users/authenticate", { //CHANGE THE IP ADDRESS ON THIS LINE
                     method: 'POST',
                     headers: { 'Content-Type': "application/json" },
                     body: JSON.stringify({ "username": username, "password": password })
