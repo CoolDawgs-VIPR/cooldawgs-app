@@ -10,13 +10,20 @@ import {
     View,
 } from "react-native";
 
-const API_BASE =
-  process.env.EXPO_PUBLIC_API_BASE
+const API_BASE = "http://172.20.37.153:8082";
 
 interface Pet {
   _id: string;
   name: string;
   image: string;
+  ownerUsername: string;
+  ownerEmail: string;
+  breed: string;
+  age: number;
+  gender: string;
+  weight: number;
+  neutered: boolean;
+  indoor: boolean;
 }
 
 export default function HomeScreen() {
@@ -25,13 +32,16 @@ export default function HomeScreen() {
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/pets`)
+    console.log("Fetching pets from:", `${API_BASE}/api/pets/`)
+    fetch(`${API_BASE}/api/pets/`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("Fetched pets:", data)
         setPets(data);
         setLoading(false);
       })
       .catch((error) => {
+        console.log(`Error fetching pets from ${API_BASE}/api/pets/`)
         console.error("Failed to fetch pets:", error);
         setLoading(false);
       });
@@ -41,14 +51,15 @@ export default function HomeScreen() {
     return <ActivityIndicator size="large" style={styles.container} />;
   }
 
-  const renderItem = ({ item }: { item: Pet }) => (
-    <Link href={`/petprofile/${item.name}`} asChild>
+  const renderItem = ({ item }: { item: Pet }) => {console.log(`/petprofile/${item.ownerUsername}/${item.name}`);
+  return (
+    <Link href={`/petprofile/${item.ownerUsername}/${item.name}`} asChild>
       <TouchableOpacity style={styles.petItem}>
         <Image source={{ uri: item.image }} style={styles.petImage} />
         <Text style={styles.petName}>{item.name}</Text>
       </TouchableOpacity>
     </Link>
-  );
+  );}
 
   return (
     <View style={styles.container}>

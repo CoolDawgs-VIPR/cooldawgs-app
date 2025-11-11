@@ -19,7 +19,7 @@ export default function RootLayout() {
         }
       }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="petprofile/[id]" options={{
+        <Stack.Screen name="petprofile/[username]/[id]" options={{
             presentation: "containedModal",
             animation: 'fade',
             headerShown: true,

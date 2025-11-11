@@ -12,6 +12,9 @@ export default function login() {
 
     const signupAnim = useRef(new Animated.Value(1)).current;
 
+    const DATABASE_URL = "http://172.28.144.1:8082";
+
+
     const onPressIn = (anim: Animated.Value, route: any) => {
         return async () => {
             Animated.spring(anim, {
@@ -19,8 +22,9 @@ export default function login() {
                 tension: 100,
                 useNativeDriver: true
             }).start();
-            try {                                   //CHANGE THE IP ADDRESS BELOW TO YOUR LAPTOP IP ADDRESS FOR DEVELOPMENT
-                const response = await fetch("http://172.20.246.17:8082/api/users/authenticate", { //CHANGE THE IP ADDRESS ON THIS LINE
+            try {                       
+                console.log(`${DATABASE_URL}/api/users/authenticate`)            //CHANGE THE IP ADDRESS BELOW TO YOUR LAPTOP IP ADDRESS FOR DEVELOPMENT
+                const response = await fetch(`${DATABASE_URL}/api/users/authenticate`, { //CHANGE THE IP ADDRESS ON THIS LINE
                     method: 'POST',
                     headers: { 'Content-Type': "application/json" },
                     body: JSON.stringify({ "username": username, "password": password })
@@ -55,7 +59,7 @@ export default function login() {
             <Text>Username: newuser1</Text>
             <Text>password: qwerty</Text>
             <Text>ALSO IMPORTANT:</Text>
-            <Text>go to line 23 of login.tsx and change the ip address in the fetch request to match your laptop local ip address</Text>
+            <Text>go to line 15 of login.tsx and change the ip address in the fetch request to match your laptop local ip address</Text>
             <View style={styles.holder}>
                 <Text style={styles.prompt_text}>🐕‍🦺Enter your credentials</Text>
                 <View style={styles.fill_width}>
