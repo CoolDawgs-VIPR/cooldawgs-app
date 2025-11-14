@@ -2,28 +2,28 @@ import React from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import Graph, { type HourlyAvg } from "./Graph";
 
-//might have to do something about different devices, but this has either web (localhost) or android or non
-const API_BASE =
-  process.env.EXPO_PUBLIC_API_BASE ??
-  (typeof window !== "undefined"
-    ? "http://localhost:8082"
-    : "http://10.0.2.2:8082");
-
 // returned by /api/temps/avg24h
 type AvgRow = { hourISO: string; avgTemp: number; count: number };
 
 type Props = {
   ownerUsername?: string;
   petName?: string;
-  /** web only..; native uses baseline trick inside Graph.tsx */
+  /** web only — native ignores this */
   yDomainC?: [number, number];
-  /** Auto-refresh (ms). I set default: 60_000, we can change it */
+  /** auto-refresh interval (ms) */
   refreshMs?: number;
-  /** If backend groups in UTC, set true to interpret hours as UTC on client */
+  /** set true if backend groups by UTC hours */
   hoursAreUTC?: boolean;
 };
 
 type State = { hourly: HourlyAvg[]; loading: boolean; error?: string };
+
+// Device-aware base URL
+const API_BASE =
+  process.env.EXPO_PUBLIC_API_BASE ??
+  (typeof window !== "undefined"
+    ? "http://localhost:8082"
+    : "http://10.0.2.2:8082");
 
 export default class GraphFromFile extends React.Component<Props, State> {
   state: State = { hourly: [], loading: true };
@@ -46,7 +46,6 @@ export default class GraphFromFile extends React.Component<Props, State> {
       const hour = this.props.hoursAreUTC ? d.getUTCHours() : d.getHours();
       byHour.set(hour, r.avgTemp);
     }
-    // Fill all 24 hours; use NaN when no data - handled by Graph.tsx
     return Array.from({ length: 24 }, (_, hour) => {
       const c = byHour.get(hour);
       if (c == null || !Number.isFinite(c))
@@ -57,10 +56,12 @@ export default class GraphFromFile extends React.Component<Props, State> {
 
   private load = async () => {
     try {
-      const { ownerUsername, petName } = this.props;
+      const owner = this.props.ownerUsername ?? "";
+      const pet = this.props.petName ?? "";
+
       const qs = new URLSearchParams();
-      if (ownerUsername) qs.set("ownerUsername", ownerUsername);
-      if (petName) qs.set("petName", petName);
+      if (owner) qs.set("ownerUsername", owner);
+      if (pet) qs.set("petName", pet);
 
       const url = `${API_BASE}/api/temps/avg24h${
         qs.toString() ? `?${qs}` : ""
@@ -103,7 +104,7 @@ export default class GraphFromFile extends React.Component<Props, State> {
           hourly={hourly}
           unit="C"
           title="Average Temperature Breakdown"
-          yDomainC={yDomainC} //[35, 38] for the web chart
+          yDomainC={yDomainC}
         />
       </View>
     );
