@@ -1,4 +1,5 @@
 import { Link, useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -10,7 +11,7 @@ import {
   View,
 } from "react-native";
 
-const API_BASE = "http://172.20.37.153:8082";
+const API_BASE = process.env.EXPO_PUBLIC_API_BASE;
 
 interface Pet {
   _id: string;
@@ -32,19 +33,28 @@ export default function HomeScreen() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("Fetching pets from:", `${API_BASE}/api/pets/`)
-    fetch(`${API_BASE}/api/pets/`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Fetched pets:", data)
-        setPets(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(`Error fetching pets from ${API_BASE}/api/pets/`)
+    const fetchPets = async () => {
+      try {
+        var username = await SecureStore.getItemAsync("username");
+        if (!username) {
+          username = "newuser1";
+        }
+
+        console.log(`Fetching pets for ${username} from: ${API_BASE}/api/pets/`);
+        const response = await fetch(`http://172.20.37.153:8082/api/pets/`);
+        const allPets: Pet[] = await response.json();
+
+        const userPets = allPets.filter((pet) => pet.ownerUsername === username);
+        console.log("Fetched user pets:", userPets);
+        setPets(userPets);
+      } catch (error) {
         console.error("Failed to fetch pets:", error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchPets();
   }, []);
 
   if (loading) {
