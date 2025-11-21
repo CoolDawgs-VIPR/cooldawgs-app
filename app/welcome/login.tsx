@@ -60,18 +60,18 @@ export default function login() {
             <Text>ALSO IMPORTANT:</Text>
             <Text>go to line 15 of login.tsx and change the ip address in the fetch request to match your laptop local ip address</Text>
             <View style={styles.holder}>
-                <Text style={styles.prompt_text}>🐕‍🦺Enter your credentials</Text>
+                <Text style={styles.prompt_text}>Log In</Text>
                 <View style={styles.fill_width}>
                     <TextInput style={styles.text_input_style} placeholder="Username" placeholderTextColor="black" autoCapitalize="none" onChangeText={setUsername}/>
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Text style={styles.forgot_text_styles}>Forgot Username...</Text>
-                    </TouchableOpacity>                    
+                    </TouchableOpacity>                     */}
                 </View>
                 <View style={styles.fill_width}>
                     <TextInput style={styles.text_input_style} placeholder="Password" placeholderTextColor="black" autoCapitalize="none" secureTextEntry={true} onChangeText={setPassword} />
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Text style={styles.forgot_text_styles}>Forgot Password...</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 <View style={styles.remaining}>
                     <Pressable onPressIn={onPressIn(signupAnim, `/`)} style={styles.button_pressable_surround}>
@@ -88,72 +88,90 @@ export default function login() {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "#aebfd3",
+        flex: 1,
+        backgroundColor: "#F5F7FA", // Modern light gray background
         width: "100%",
-        height: "100%",
-        //justifyContent: "center",
+        justifyContent: "center",
         alignItems: "center",
+        padding: 20,
     },
 
     holder: {
         width: "100%",
-        height: "50%",
-        //backgroundColor: "lightgray",
-        flexDirection: "column",  
-        padding: "4%",
-        borderRadius: 10,
-        marginBottom: "50%"
+        maxWidth: 400, // Prevents it from getting too wide on tablets
+        backgroundColor: "white", // Card look
+        flexDirection: "column",   
+        padding: 30,
+        borderRadius: 24, // Smooth rounded corners
+        // Shadow/Elevation for depth
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.1,
+        shadowRadius: 20,
+        elevation: 10,
     }, 
 
-    text_input_style: {
-        backgroundColor: "white",
-        borderWidth: 2,
-        fontSize: 18,
-        width: "100%",
-        marginTop: "10%",
-        color: "black"
-    },
-
+    // The Header Text
     prompt_text: {
-        fontSize: 30,
+        fontSize: 24,
+        fontWeight: "800",
+        color: "#1F2937",
         textAlign: "center",
+        marginBottom: 30,
     },
 
     fill_width: {
-        width: "100%"
+        width: "100%",
+        marginBottom: 16,
+    },
+
+    text_input_style: {
+        backgroundColor: "#F3F4F6", 
+        borderColor: "transparent",
+        borderRadius: 12,
+        fontSize: 16,
+        width: "100%",
+        padding: 16,
+        color: "#1F2937",
     },
 
     forgot_text_styles: {
-        textDecorationLine: "underline",
-        textAlign: "right"
+        textAlign: "right",
+        color: "#4F46E5", 
+        fontWeight: "600",
+        fontSize: 12,
+        marginTop: 8,
     },
 
     remaining: {
-        flex: 1,
-        flexDirection: "column-reverse",
-        //backgroundColor: "green" //remove this
+        marginTop: 10,
     },
 
     button_pressable_surround: {
         width: "100%",
-        height: "50%",
-        marginTop: "4%"
+        height: 56,
+        marginTop: 20,
     },
 
     login_button_style: {
         width: "100%",
         height: "100%",
-        borderColor: "black",
-        borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 4,
-        backgroundColor: "#008b5dff",
+        borderRadius: 16,
+        backgroundColor: "#4F46E5",
+        // Button Shadow
+        shadowColor: "#4F46E5",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 8,
+        elevation: 5,
+        borderWidth: 0,
     },
 
     button_text: {
-        fontSize: 30
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "white",
     }
-
-
-})
+});

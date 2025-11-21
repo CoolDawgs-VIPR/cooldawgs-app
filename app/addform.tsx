@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   checkboxInner: {
     width: 16,
     height: 16,
-    backgroundColor: "#4682B4",
+    backgroundColor: "#4F46E5",
     borderRadius: 4,
   },
   checkboxLabel: {
@@ -289,12 +289,12 @@ const styles = StyleSheet.create({
     color: "#334E68",
   },
   button: {
-    backgroundColor: "#4682B4",
+    backgroundColor: "#4F46E5",
     paddingVertical: 16,
     borderRadius: 8,
     marginTop: 20,
     alignItems: "center",
-    shadowColor: "#4682B4",
+    shadowColor: "#4F46E5",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
@@ -328,8 +328,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   genderSelected: {
-    backgroundColor: "#4682B4",
-    shadowColor: "#4682B4",
+    backgroundColor: "#4F46E5",
+    shadowColor: "#4F46E5",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 3,

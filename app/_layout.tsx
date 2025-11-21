@@ -46,7 +46,7 @@ export default function RootLayout() {
         <Stack.Screen name="welcome/signup" options={{
           presentation: "modal",
           animation: "slide_from_right",
-          title: "Create Account...",
+          title: "Register",
         }}/>
       </Stack>
       <StatusBar style="auto" />

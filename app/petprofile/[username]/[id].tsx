@@ -6,6 +6,7 @@ import { Device } from "react-native-ble-plx";
 import BluetoothComponent from "../../component/BluetoothComponent";
 import Graph from "../../component/Graph";
 import Temperature from "../../component/Temperature";
+import GraphFromFile from "@/app/component/GraphFromApi";
 
 
 export default function PetProfileScreen() {
@@ -49,14 +50,12 @@ export default function PetProfileScreen() {
         suggestedLimitC={Math.random() * 5 + 75}
         max24hC={Math.random() * 10 + 80}
       />
-      <Graph
-        title="Hourly Average Temperature"
-        unit="F"
-        hourly={Array.from({ length: 24 }, (_, i) => ({
-          hour: i,
-          avgC: Math.random() * 10 + 20,
-          avgF: Math.random() * 18 + 90,
-        }))}
+      <GraphFromFile
+        ownerUsername={pet?.ownerUsername}     // must match what you seeded
+        petName={pet?.name}            // must match what you seeded
+        yDomainC={[35, 38]}      // (used by web version; native ignores)
+        hoursAreUTC
+        refreshMs={60_000}       // auto-refresh every 60s 
       />
 
     </ScrollView>

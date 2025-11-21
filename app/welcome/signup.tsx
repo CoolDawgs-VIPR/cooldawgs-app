@@ -39,7 +39,7 @@ export default function signup() {
             <Text>THIS PAGE DOESNT WORK YET GO TO LOGIN</Text>
             <ScrollView>
                 <View style={styles.holder}>
-                    <Text style={styles.prompt_text}>🐕Fill out the fields below:</Text>
+                    <Text style={styles.prompt_text}>🐕 Create an Account</Text>
                     <View style={styles.fill_width}>
                         <Text>Username: </Text>                    
                         <TextInput style={styles.text_input_style} placeholder="username" placeholderTextColor="black" autoCapitalize="none" onChangeText={setUsername}/>
@@ -71,69 +71,87 @@ export default function signup() {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "#aebfd3",
         flex: 1,
-    },
-
-    text_input_style: {
-        backgroundColor: "white",
-        borderWidth: 2,
-        fontSize: 18,
-        width: "100%",
-        marginBottom: "6%",
-        color: "black"
-    },
-
-    fill_width: {
-        width: "100%"
+        backgroundColor: "#F5F7FA", 
     },
 
     holder: {
-        width: "100%",
-        height: "80%",
-        flexDirection: "column",  
-        padding: "4%",
-        borderRadius: 10,
-        marginBottom: "50%"
+        backgroundColor: "white",
+        marginHorizontal: 20,
+        marginTop: 40, 
+        marginBottom: 40,
+        padding: 24,
+        borderRadius: 24,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.08,
+        shadowRadius: 20,
+        elevation: 5,
     },
 
-    forgot_text_styles: {
-        textDecorationLine: "underline",
-        textAlign: "right"
+    prompt_text: {
+        fontSize: 22,
+        fontWeight: "800",
+        color: "#1E293B",
+        textAlign: "center",
+        marginBottom: 30,
+        letterSpacing: -0.5,
+    },
+
+    fill_width: {
+        width: "100%",
+        marginBottom: 16,
+    },
+
+    text_input_style: {
+        backgroundColor: "#F1F5F9",
+        borderRadius: 12,
+        fontSize: 16,
+        width: "100%",
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        color: "#1E293B",
+        marginTop: 8, 
+        borderWidth: 0,
     },
 
     remaining: {
-        flex: 1,
+        marginTop: 20,
         flexDirection: "column-reverse",
-        //backgroundColor: "green" //remove this
     },
 
     button_pressable_surround: {
         width: "100%",
-        height: 80,
-        marginTop: "4%"
+        height: 56,
+        marginTop: 10,
     },
 
     login_button_style: {
         width: "100%",
         height: "100%",
-        borderColor: "black",
-        borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 4,
-        backgroundColor: "#8b0035ff",
+        borderRadius: 16,
+        backgroundColor: "#4F46E5",
+        borderWidth: 0,
+        shadowColor: "#4F46E5",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 4,
     },
 
     button_text: {
-        fontSize: 30
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "white",
+        letterSpacing: 0.5,
     },
 
-    prompt_text: {
-        fontSize: 30,
-        textAlign: "center",
-        marginBottom: 10
+    forgot_text_styles: {
+        textDecorationLine: "underline",
+        textAlign: "right",
+        color: "#64748B",
+        marginTop: 8,
     },
-
-
-})
+});

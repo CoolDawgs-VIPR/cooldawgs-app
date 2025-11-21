@@ -55,62 +55,71 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     body: {
-        backgroundColor: "#aebfd3",
-        width: "100%",
-        height: "100%",
+        flex: 1,
+        backgroundColor: "#F5F7FA",
         justifyContent: "center",
         alignItems: "center",
     },
 
     entry_holder: {
         flexDirection: "column-reverse",
-        //backgroundColor: "green", //remove
         height: "80%",
-        width: "90%",
+        width: "85%", 
+        justifyContent: "center", 
     },
 
     logo_and_remaining: {
         flex: 1,
-        //backgroundColor: "orange", //REMOVE
-        justifyContent: "flex-start",
+        justifyContent: "center",
         alignItems: "center",
+        marginBottom: 20,
+    },
+
+    cooldawgs_logo: {
+        fontSize: 50,
+        fontWeight: "900", 
+        color: "#4F46E5",
+        letterSpacing: -1,
     },
 
     button_pressable_surround: {
         width: "100%",
-        height: "10%",
-        marginTop: "4%"
+        height: 60, 
+        marginTop: 16,
     },
 
     button_text: {
-        fontSize: 30
+        fontSize: 18, 
+        fontWeight: "bold",
+        color: "white", 
+        letterSpacing: 0.5,
     },
 
     login_button_style: {
         width: "100%",
         height: "100%",
-        borderColor: "black",
-        //borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 3,
-        backgroundColor: "#008b5dff",
+        borderRadius: 16,
+        backgroundColor: "#4F46E5",
+        shadowColor: "#4F46E5",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 5,
     },
 
     signup_button_style: {
         width: "100%",
         height: "100%",
-        borderColor: "black",
-        //borderWidth: 2,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: 3,
-        backgroundColor: "#831740ff",
+        borderRadius: 16,
+        backgroundColor: "#1F2937", 
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
     },
-
-    cooldawgs_logo: {
-        fontSize: 60,
-    }
-
-    
 });
